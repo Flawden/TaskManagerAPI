@@ -1,0 +1,9 @@
+spring.application.name=TaskManagerAPI
+
+spring.datasource.url =
+spring.datasource.username =
+spring.datasource.password =
+spring.jpa.hibernate.ddl-auto =
+spring.jpa.show-sql =
+
+secret.key =
