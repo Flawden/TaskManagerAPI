@@ -1,4 +1,4 @@
-package com.flawden.TaskManagerAPI.dto;
+package com.flawden.TaskManagerAPI.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

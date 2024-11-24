@@ -1,6 +1,6 @@
 package com.flawden.TaskManagerAPI.config.mappers;
 
-import com.flawden.TaskManagerAPI.dto.*;
+import com.flawden.TaskManagerAPI.dto.user.*;
 import com.flawden.TaskManagerAPI.model.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

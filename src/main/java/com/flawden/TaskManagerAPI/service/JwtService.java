@@ -1,7 +1,6 @@
 package com.flawden.TaskManagerAPI.service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -58,7 +57,7 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject); // Claims::getSubject извлекает username
+        return extractClaim(token, Claims::getSubject);
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -70,7 +69,7 @@ public class JwtService {
         return Jwts.parser()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJws(token)// Убедись, что ключ правильный
+                .parseClaimsJws(token)
                 .getBody();
     }
 

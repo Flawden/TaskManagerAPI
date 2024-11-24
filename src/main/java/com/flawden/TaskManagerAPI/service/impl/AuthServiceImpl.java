@@ -1,9 +1,11 @@
 package com.flawden.TaskManagerAPI.service.impl;
 
 import com.flawden.TaskManagerAPI.config.mappers.UserMapper;
-import com.flawden.TaskManagerAPI.config.security.PersonDetailService;
 import com.flawden.TaskManagerAPI.config.security.PersonDetails;
 import com.flawden.TaskManagerAPI.dto.*;
+import com.flawden.TaskManagerAPI.dto.user.Login;
+import com.flawden.TaskManagerAPI.dto.user.Register;
+import com.flawden.TaskManagerAPI.exception.UserIsAlreadyExistException;
 import com.flawden.TaskManagerAPI.model.UserEntity;
 import com.flawden.TaskManagerAPI.repository.UserRepository;
 import com.flawden.TaskManagerAPI.service.AuthService;
@@ -11,7 +13,6 @@ import com.flawden.TaskManagerAPI.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthenticationResponse register(Register register) {
+        if (userRepository.findByEmail(register.getUsername()).isPresent()) {
+            throw new UserIsAlreadyExistException("Пользователь с текущим электронным адресом уже существует");
+        }
         register.setPassword(passwordEncoder.encode(register.getPassword()));
         UserEntity user = userMapper.mapRegisterToUserEntity(register);
         userRepository.save(user);

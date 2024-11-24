@@ -1,8 +1,8 @@
 package com.flawden.TaskManagerAPI.service;
 
 import com.flawden.TaskManagerAPI.dto.AuthenticationResponse;
-import com.flawden.TaskManagerAPI.dto.Login;
-import com.flawden.TaskManagerAPI.dto.Register;
+import com.flawden.TaskManagerAPI.dto.user.Login;
+import com.flawden.TaskManagerAPI.dto.user.Register;
 
 public interface AuthService {
 
