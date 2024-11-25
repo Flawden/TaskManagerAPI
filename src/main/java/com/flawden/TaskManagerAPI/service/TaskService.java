@@ -9,7 +9,7 @@ public interface TaskService {
 
     List<Task> getAllTasks();
 
-    List<Task> getTasksWithPagination(int page);
+    List<Task> getTasksWithPagination(Long page);
 
     Task getTaskById(Long id);
 

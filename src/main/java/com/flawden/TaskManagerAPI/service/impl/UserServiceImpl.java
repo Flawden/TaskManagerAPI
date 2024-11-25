@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersWithPagination(int page) {
+    public List<User> getUsersWithPagination(Long page) {
         return List.of();
     }
 

@@ -8,7 +8,7 @@ public interface CommentService {
 
     List<Comment> getAllComments();
 
-    List<Comment> getCommentsWithPagination(int page);
+    List<Comment> getCommentsWithPagination(Long page);
 
     Comment getCommentById(Long id);
 
