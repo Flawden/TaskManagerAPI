@@ -17,7 +17,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getCommentsWithPagination(int page) {
+    public List<Comment> getCommentsWithPagination(Long page) {
         return List.of();
     }
 

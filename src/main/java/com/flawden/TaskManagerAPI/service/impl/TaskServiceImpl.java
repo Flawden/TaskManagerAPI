@@ -17,7 +17,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getTasksWithPagination(int page) {
+    public List<Task> getTasksWithPagination(Long page) {
         return List.of();
     }
 
