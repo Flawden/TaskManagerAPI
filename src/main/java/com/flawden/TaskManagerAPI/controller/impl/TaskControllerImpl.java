@@ -5,8 +5,7 @@ import com.flawden.TaskManagerAPI.dto.task.Task;
 import com.flawden.TaskManagerAPI.dto.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,41 +14,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskControllerImpl implements TaskController {
 
+    @GetMapping
     @Override
-    public ResponseEntity<List<Task>> getAllTasks() {
+    public ResponseEntity<List<Task>> getAllTasks(Long page) {
         return null;
     }
 
-    @Override
-    public ResponseEntity<List<Task>> getTasksWithPagination(int page) {
-        return null;
-    }
-
+    @GetMapping("/{id}")
     @Override
     public ResponseEntity<Task> getTaskById(Long id) {
         return null;
     }
 
+    @PostMapping
     @Override
     public ResponseEntity<Task> addTask(Task task) {
         return null;
     }
 
+    @PatchMapping
     @Override
     public ResponseEntity<Task> updateTask(Task task) {
         return null;
     }
 
+    @DeleteMapping("/{id}")
     @Override
     public ResponseEntity<Task> deleteTask(Long id) {
         return null;
     }
 
+    @GetMapping("/user/{username}")
     @Override
     public ResponseEntity<Task> getTaskByName(String name) {
         return null;
     }
 
+    @GetMapping("/user")
     @Override
     public ResponseEntity<Task> getTaskByUser(User user) {
         return null;
