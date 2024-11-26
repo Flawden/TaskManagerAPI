@@ -14,10 +14,9 @@ public interface TaskController {
     ResponseEntity<List<Task>> getAllTasks(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
     ResponseEntity<Task> getTaskById(@PathVariable Long id);
     ResponseEntity<Task> addTask(@RequestBody Task task);
-    ResponseEntity<Task> updateTask(@RequestBody Task task);
+    ResponseEntity<Task> updateTask(@RequestBody Task task, @PathVariable Long taskId);
     ResponseEntity<Task> deleteTask(@PathVariable Long id);
     ResponseEntity<Task> getTaskByName(@PathVariable String name);
-    ResponseEntity<Task> getTaskByUser(@RequestBody User user);
 
 }
 

@@ -1,7 +1,7 @@
 package com.flawden.TaskManagerAPI.service.impl;
 
 import com.flawden.TaskManagerAPI.dto.Comment;
-import com.flawden.TaskManagerAPI.exception.CommentNotFound;
+import com.flawden.TaskManagerAPI.exception.CommentNotFoundException;
 import com.flawden.TaskManagerAPI.mapper.CommentMapper;
 import com.flawden.TaskManagerAPI.model.CommentEntity;
 import com.flawden.TaskManagerAPI.repository.CommentRepository;
@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment getCommentById(Long id) {
-        return commentMapper.mapCommentEntityToComment(commentRepository.findById(id).orElseThrow(CommentNotFound::new));
+        return commentMapper.mapCommentEntityToComment(commentRepository.findById(id).orElseThrow(CommentNotFoundException::new));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment updateComment(Comment comment, Long authorId) {
-        CommentEntity updatableComment = commentRepository.findCommentEntityByAuthorId(authorId).orElseThrow(CommentNotFound::new);
+        CommentEntity updatableComment = commentRepository.findCommentEntityByAuthorId(authorId).orElseThrow(CommentNotFoundException::new);
         updatableComment.setAuthor(updatableComment.getAuthor());
         updatableComment.setText(updatableComment.getText());
         return commentMapper.mapCommentEntityToComment(commentRepository.save(updatableComment));
@@ -66,11 +66,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment getCommentByTaskId(Long id) {
-        return commentMapper.mapCommentEntityToComment(commentRepository.findCommentEntitiesByTaskId(id).orElseThrow(CommentNotFound::new));
+        return commentMapper.mapCommentEntityToComment(commentRepository.findCommentEntitiesByTaskId(id).orElseThrow(CommentNotFoundException::new));
     }
 
     @Override
     public Comment getCommentByUserId(Long id) {
-        return commentMapper.mapCommentEntityToComment(commentRepository.findCommentEntityByAuthorId(id).orElseThrow(CommentNotFound::new));
+        return commentMapper.mapCommentEntityToComment(commentRepository.findCommentEntityByAuthorId(id).orElseThrow(CommentNotFoundException::new));
     }
 }

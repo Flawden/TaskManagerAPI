@@ -2,9 +2,7 @@ package com.flawden.TaskManagerAPI.controller.impl;
 
 import com.flawden.TaskManagerAPI.controller.TaskController;
 import com.flawden.TaskManagerAPI.dto.task.Task;
-import com.flawden.TaskManagerAPI.dto.user.User;
 import com.flawden.TaskManagerAPI.service.TaskService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,10 +38,10 @@ public class TaskControllerImpl implements TaskController {
         return ResponseEntity.ok(taskService.addTask(task));
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     @Override
-    public ResponseEntity<Task> updateTask(Task task) {
-        return ResponseEntity.ok(taskService.updateTask(task));
+    public ResponseEntity<Task> updateTask(Task task, Long taskId) {
+        return ResponseEntity.ok(taskService.updateTask(task, taskId));
     }
 
     @DeleteMapping("/{id}")
@@ -59,9 +57,4 @@ public class TaskControllerImpl implements TaskController {
         return ResponseEntity.ok(taskService.getTaskByName(name));
     }
 
-    @GetMapping("/user")
-    @Override
-    public ResponseEntity<Task> getTaskByUser(User user) {
-        return ResponseEntity.ok(taskService.getTaskByUser(user));
-    }
 }
