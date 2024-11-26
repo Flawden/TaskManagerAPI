@@ -1,9 +1,11 @@
 package com.flawden.TaskManagerAPI.controller.impl;
 
 import com.flawden.TaskManagerAPI.controller.UserController;
+import com.flawden.TaskManagerAPI.dto.user.UpdateUser;
 import com.flawden.TaskManagerAPI.dto.user.User;
 import com.flawden.TaskManagerAPI.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,15 +40,16 @@ public class UserControllerImpl implements UserController {
         return ResponseEntity.ok(userService.addUser(user));
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     @Override
-    public ResponseEntity<User> updateUser(User user) {
-        return ResponseEntity.ok(userService.updateUser(user));
+    public ResponseEntity<HttpStatus> updateUser(UpdateUser user, Long userId) {
+        userService.updateUser(user, userId);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity deleteUser(Long id) {
+    public ResponseEntity<HttpStatus> deleteUser(Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }

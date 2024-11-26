@@ -4,6 +4,8 @@ import com.flawden.TaskManagerAPI.controller.TaskController;
 import com.flawden.TaskManagerAPI.dto.task.Task;
 import com.flawden.TaskManagerAPI.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,13 +42,14 @@ public class TaskControllerImpl implements TaskController {
 
     @PatchMapping("/{id}")
     @Override
-    public ResponseEntity<Task> updateTask(Task task, Long taskId) {
-        return ResponseEntity.ok(taskService.updateTask(task, taskId));
+    public ResponseEntity<HttpStatus> updateTask(Task task, Long taskId) {
+        taskService.updateTask(task, taskId);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity deleteTask(Long id) {
+    public ResponseEntity<HttpStatus> deleteTask(Long id) {
         taskService.deleteTask(id);
         return ResponseEntity.ok().build();
     }

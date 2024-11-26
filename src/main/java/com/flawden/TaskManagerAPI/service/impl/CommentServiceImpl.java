@@ -52,11 +52,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment updateComment(Comment comment, Long authorId) {
+    public void updateComment(Comment comment, Long authorId) {
         CommentEntity updatableComment = commentRepository.findCommentEntityByAuthorId(authorId).orElseThrow(CommentNotFoundException::new);
         updatableComment.setAuthor(updatableComment.getAuthor());
         updatableComment.setText(updatableComment.getText());
-        return commentMapper.mapCommentEntityToComment(commentRepository.save(updatableComment));
+        commentRepository.save(updatableComment);
     }
 
     @Override

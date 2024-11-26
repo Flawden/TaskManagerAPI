@@ -1,6 +1,7 @@
 package com.flawden.TaskManagerAPI.controller;
 
 import com.flawden.TaskManagerAPI.dto.Comment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +17,9 @@ public interface CommentController {
 
     ResponseEntity<Comment> addComment(@RequestBody Comment comment);
 
-    ResponseEntity<Comment> updateComment(@RequestBody Comment comment, Long authorId);
+    ResponseEntity<HttpStatus> updateComment(@RequestBody Comment comment, Long authorId);
 
-    ResponseEntity<Comment> deleteComment(@PathVariable Long id);
+    ResponseEntity<HttpStatus> deleteComment(@PathVariable Long id);
 
     ResponseEntity<Comment> getCommentByTaskId(@PathVariable Long id);
 

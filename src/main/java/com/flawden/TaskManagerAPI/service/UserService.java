@@ -1,5 +1,6 @@
 package com.flawden.TaskManagerAPI.service;
 
+import com.flawden.TaskManagerAPI.dto.user.UpdateUser;
 import com.flawden.TaskManagerAPI.dto.user.User;
 import org.springframework.http.ResponseEntity;
 
@@ -11,7 +12,7 @@ public interface UserService {
     List<User> getUsersWithPagination(Integer page, Integer size);
     User getUserById(Long id);
     User addUser(User user);
-    User updateUser(User user);
+    void updateUser(UpdateUser user, Long userId);
     void deleteUser(Long id);
     User getUserByUsername(String username);
 

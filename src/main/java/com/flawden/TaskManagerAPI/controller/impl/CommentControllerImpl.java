@@ -4,6 +4,7 @@ import com.flawden.TaskManagerAPI.controller.CommentController;
 import com.flawden.TaskManagerAPI.dto.Comment;
 import com.flawden.TaskManagerAPI.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,15 +39,16 @@ public class CommentControllerImpl implements CommentController {
         return ResponseEntity.ok(commentService.addComment(comment));
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     @Override
-    public ResponseEntity<Comment> updateComment(Comment comment, Long authorId) {
-        return ResponseEntity.ok(commentService.updateComment(comment, authorId));
+    public ResponseEntity<HttpStatus> updateComment(Comment comment, Long authorId) {
+        commentService.updateComment(comment, authorId);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity deleteComment(Long id) {
+    public ResponseEntity<HttpStatus> deleteComment(Long id) {
         commentService.deleteComment(id);
         return ResponseEntity.ok().build();
     }

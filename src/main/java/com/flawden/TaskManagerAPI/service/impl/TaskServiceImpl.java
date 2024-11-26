@@ -50,13 +50,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTask(Task task, Long taskId) {
+    public void updateTask(Task task, Long taskId) {
         TaskEntity updatableTask = taskRepository.findById(taskId).orElseThrow(TaskNotFoundException::new);
         updatableTask.setTitle(task.getTitle());
         updatableTask.setDescription(task.getDescription());
         updatableTask.setStatus(Status.valueOf(task.getStatus()));
         updatableTask.setPriority(Priority.valueOf(task.getPriority()));
-        return taskMapper.mapTaskEntityToTask(taskRepository.save(updatableTask));
+        taskRepository.save(updatableTask);
     }
 
     @Override
