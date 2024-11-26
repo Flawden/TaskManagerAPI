@@ -17,7 +17,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getTasksWithPagination(Long page) {
+    public List<Task> getTasksWithPagination(Integer page, Integer size) {
         return List.of();
     }
 
@@ -37,8 +37,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task deleteTask(Long id) {
-        return null;
+    public void deleteTask(Long id) {
+
     }
 
     @Override

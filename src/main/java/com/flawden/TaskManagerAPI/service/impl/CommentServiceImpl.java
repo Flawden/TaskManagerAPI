@@ -1,53 +1,76 @@
 package com.flawden.TaskManagerAPI.service.impl;
 
 import com.flawden.TaskManagerAPI.dto.Comment;
+import com.flawden.TaskManagerAPI.exception.CommentNotFound;
+import com.flawden.TaskManagerAPI.mapper.CommentMapper;
+import com.flawden.TaskManagerAPI.model.CommentEntity;
+import com.flawden.TaskManagerAPI.repository.CommentRepository;
 import com.flawden.TaskManagerAPI.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
+    private final CommentRepository commentRepository;
+    private final CommentMapper commentMapper;
+
     @Override
     public List<Comment> getAllComments() {
-        return List.of();
+        return commentRepository.findAll().stream()
+                .map(this::mapCommentEntityToComment)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Comment> getCommentsWithPagination(Long page) {
-        return List.of();
+    public List<Comment> getCommentsWithPagination(Integer page, Integer limit) {
+        Pageable pageable = PageRequest.of(page, limit);
+        return commentRepository.findAll(pageable)
+                .stream()
+                .map(this::mapCommentEntityToComment)
+                .collect(Collectors.toList());
+    }
+
+    private Comment mapCommentEntityToComment(CommentEntity commentEntity) {
+        return commentMapper.mapCommentEntityToComment(commentEntity);
     }
 
     @Override
     public Comment getCommentById(Long id) {
-        return null;
+        return commentMapper.mapCommentEntityToComment(commentRepository.findById(id).orElseThrow(CommentNotFound::new));
     }
 
     @Override
     public Comment addComment(Comment comment) {
-        return null;
+        return commentMapper.mapCommentEntityToComment(commentRepository.save(commentMapper.mapCommentToCommentEntity(comment)));
     }
 
     @Override
-    public Comment updateComment(Comment comment) {
-        return null;
+    public Comment updateComment(Comment comment, Long authorId) {
+        CommentEntity updatableComment = commentRepository.findCommentEntityByAuthorId(authorId).orElseThrow(CommentNotFound::new);
+        updatableComment.setAuthor(updatableComment.getAuthor());
+        updatableComment.setText(updatableComment.getText());
+        return commentMapper.mapCommentEntityToComment(commentRepository.save(updatableComment));
     }
 
     @Override
-    public Comment deleteComment(Long id) {
-        return null;
+    public void deleteComment(Long id) {
+        commentRepository.deleteById(id);
     }
 
     @Override
     public Comment getCommentByTaskId(Long id) {
-        return null;
+        return commentMapper.mapCommentEntityToComment(commentRepository.findCommentEntitiesByTaskId(id).orElseThrow(CommentNotFound::new));
     }
 
     @Override
     public Comment getCommentByUserId(Long id) {
-        return null;
+        return commentMapper.mapCommentEntityToComment(commentRepository.findCommentEntityByAuthorId(id).orElseThrow(CommentNotFound::new));
     }
 }

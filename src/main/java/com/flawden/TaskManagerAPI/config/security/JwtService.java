@@ -1,4 +1,4 @@
-package com.flawden.TaskManagerAPI.service;
+package com.flawden.TaskManagerAPI.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

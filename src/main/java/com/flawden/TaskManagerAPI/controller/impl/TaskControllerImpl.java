@@ -4,6 +4,7 @@ import com.flawden.TaskManagerAPI.controller.TaskController;
 import com.flawden.TaskManagerAPI.dto.task.Task;
 import com.flawden.TaskManagerAPI.dto.user.User;
 import com.flawden.TaskManagerAPI.service.TaskService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,11 @@ public class TaskControllerImpl implements TaskController {
 
     @GetMapping
     @Override
-    public ResponseEntity<List<Task>> getAllTasks(Long page) {
+    public ResponseEntity<List<Task>> getAllTasks(Integer page, Integer limit) {
         if (page == null) {
             return ResponseEntity.ok(taskService.getAllTasks());
         } else {
-            return ResponseEntity.ok(taskService.getTasksWithPagination(page));
+            return ResponseEntity.ok(taskService.getTasksWithPagination(page, limit));
         }
     }
 
@@ -47,8 +48,9 @@ public class TaskControllerImpl implements TaskController {
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<Task> deleteTask(Long id) {
-        return ResponseEntity.ok(taskService.deleteTask(id));
+    public ResponseEntity deleteTask(Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/user/{username}")

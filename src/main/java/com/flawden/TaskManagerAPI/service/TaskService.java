@@ -9,7 +9,7 @@ public interface TaskService {
 
     List<Task> getAllTasks();
 
-    List<Task> getTasksWithPagination(Long page);
+    List<Task> getTasksWithPagination(Integer page, Integer size);
 
     Task getTaskById(Long id);
 
@@ -17,7 +17,7 @@ public interface TaskService {
 
     Task updateTask(Task task);
 
-    Task deleteTask(Long id);
+    void deleteTask(Long id);
 
     Task getTaskByName(String name);
 

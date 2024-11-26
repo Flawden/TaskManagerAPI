@@ -18,11 +18,11 @@ public class CommentControllerImpl implements CommentController {
 
     @GetMapping
     @Override
-    public ResponseEntity<List<Comment>> getAllComments(Long page) {
+    public ResponseEntity<List<Comment>> getAllComments(Integer page, Integer size) {
         if (page == null) {
             return ResponseEntity.ok(commentService.getAllComments());
         } else {
-            return ResponseEntity.ok(commentService.getCommentsWithPagination(page));
+            return ResponseEntity.ok(commentService.getCommentsWithPagination(page, size));
         }
     }
 
@@ -38,16 +38,17 @@ public class CommentControllerImpl implements CommentController {
         return ResponseEntity.ok(commentService.addComment(comment));
     }
 
-    @PatchMapping
+    @PatchMapping("{id}")
     @Override
-    public ResponseEntity<Comment> updateComment(Comment comment) {
-        return ResponseEntity.ok(commentService.updateComment(comment));
+    public ResponseEntity<Comment> updateComment(Comment comment, Long authorId) {
+        return ResponseEntity.ok(commentService.updateComment(comment, authorId));
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<Comment> deleteComment(Long id) {
-        return ResponseEntity.ok(commentService.deleteComment(id));
+    public ResponseEntity deleteComment(Long id) {
+        commentService.deleteComment(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/task/{id}")

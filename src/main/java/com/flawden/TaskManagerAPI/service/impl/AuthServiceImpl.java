@@ -9,7 +9,7 @@ import com.flawden.TaskManagerAPI.exception.UserIsAlreadyExistException;
 import com.flawden.TaskManagerAPI.model.UserEntity;
 import com.flawden.TaskManagerAPI.repository.UserRepository;
 import com.flawden.TaskManagerAPI.service.AuthService;
-import com.flawden.TaskManagerAPI.service.JwtService;
+import com.flawden.TaskManagerAPI.config.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

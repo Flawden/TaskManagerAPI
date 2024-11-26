@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersWithPagination(Long page) {
+    public List<User> getUsersWithPagination(Integer page, Integer size) {
         return List.of();
     }
 
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User deleteUser(Long id) {
-        return null;
+    public void deleteUser(Long id) {
+
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.flawden.TaskManagerAPI.config.filter;
 
-import com.flawden.TaskManagerAPI.service.JwtService;
+import com.flawden.TaskManagerAPI.config.security.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,6 +51,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }

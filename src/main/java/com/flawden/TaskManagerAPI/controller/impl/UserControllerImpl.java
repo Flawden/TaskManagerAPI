@@ -18,11 +18,11 @@ public class UserControllerImpl implements UserController {
 
     @GetMapping
     @Override
-    public ResponseEntity<List<User>> getAllUsers(Long page) {
+    public ResponseEntity<List<User>> getAllUsers(Integer page, Integer size) {
         if (page == null) {
             return ResponseEntity.ok(userService.getAllUsers());
         } else {
-            return ResponseEntity.ok(userService.getUsersWithPagination(page));
+            return ResponseEntity.ok(userService.getUsersWithPagination(page, size));
         }
     }
 
@@ -46,8 +46,9 @@ public class UserControllerImpl implements UserController {
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<User> deleteUser(Long id) {
-        return ResponseEntity.ok(userService.deleteUser(id));
+    public ResponseEntity deleteUser(Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/user/{username}")

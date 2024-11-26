@@ -29,6 +29,11 @@ public class TaskEntity {
     private Priority priority;
 
     @ManyToMany
+    @JoinTable(
+            name = "task_user",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<UserEntity> executors;
 
     @OneToMany(mappedBy = "task")

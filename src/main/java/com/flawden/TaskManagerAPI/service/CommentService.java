@@ -8,15 +8,15 @@ public interface CommentService {
 
     List<Comment> getAllComments();
 
-    List<Comment> getCommentsWithPagination(Long page);
+    List<Comment> getCommentsWithPagination(Integer page, Integer limit);
 
     Comment getCommentById(Long id);
 
     Comment addComment(Comment comment);
 
-    Comment updateComment(Comment comment);
+    Comment updateComment(Comment comment, Long authorId);
 
-    Comment deleteComment(Long id);
+    void deleteComment(Long id);
 
     Comment getCommentByTaskId(Long id);
 
