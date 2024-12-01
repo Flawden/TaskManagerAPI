@@ -14,7 +14,6 @@ public interface UserController {
 
     ResponseEntity<List<User>> getAllUsers(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
     ResponseEntity<User> getUserById(@PathVariable Long id);
-    ResponseEntity<User> addUser(@RequestBody User user);
     ResponseEntity<HttpStatus> updateUser(@RequestBody UpdateUser user, @PathVariable Long userId);
     ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id);
     ResponseEntity<User> getUserByUsername(@PathVariable String username);

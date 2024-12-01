@@ -1,9 +1,9 @@
 package com.flawden.TaskManagerAPI.service.impl;
 
-import com.flawden.TaskManagerAPI.config.mappers.UserMapper;
 import com.flawden.TaskManagerAPI.dto.user.UpdateUser;
 import com.flawden.TaskManagerAPI.dto.user.User;
 import com.flawden.TaskManagerAPI.exception.UserNotFoundException;
+import com.flawden.TaskManagerAPI.mapper.UserMapper;
 import com.flawden.TaskManagerAPI.model.UserEntity;
 import com.flawden.TaskManagerAPI.repository.UserRepository;
 import com.flawden.TaskManagerAPI.service.UserService;

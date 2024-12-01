@@ -34,13 +34,7 @@ public class UserControllerImpl implements UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PostMapping
-    @Override
-    public ResponseEntity<User> addUser(User user) {
-        return ResponseEntity.ok(userService.addUser(user));
-    }
-
-    @PatchMapping("/{id}")
+    @PatchMapping("/{userId}")
     @Override
     public ResponseEntity<HttpStatus> updateUser(UpdateUser user, Long userId) {
         userService.updateUser(user, userId);

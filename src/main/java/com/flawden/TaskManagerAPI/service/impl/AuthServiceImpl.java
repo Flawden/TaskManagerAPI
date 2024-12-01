@@ -1,11 +1,11 @@
 package com.flawden.TaskManagerAPI.service.impl;
 
-import com.flawden.TaskManagerAPI.config.mappers.UserMapper;
 import com.flawden.TaskManagerAPI.config.security.PersonDetails;
 import com.flawden.TaskManagerAPI.dto.*;
 import com.flawden.TaskManagerAPI.dto.user.Login;
 import com.flawden.TaskManagerAPI.dto.user.Register;
 import com.flawden.TaskManagerAPI.exception.UserIsAlreadyExistException;
+import com.flawden.TaskManagerAPI.mapper.UserMapper;
 import com.flawden.TaskManagerAPI.model.UserEntity;
 import com.flawden.TaskManagerAPI.repository.UserRepository;
 import com.flawden.TaskManagerAPI.service.AuthService;
