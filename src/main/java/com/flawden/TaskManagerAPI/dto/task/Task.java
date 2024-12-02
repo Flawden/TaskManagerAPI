@@ -19,6 +19,6 @@ public class Task {
     private String status;
     private String priority;
     private List<User> executors;
-    private List<Comment> commentEntities;
+    private List<Comment> comments;
 
 }

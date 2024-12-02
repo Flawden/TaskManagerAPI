@@ -13,10 +13,14 @@ public interface TaskMapper {
 
     @Mapping(target = "status", source = "status", qualifiedByName = "enumToString")
     @Mapping(target = "priority", source = "priority", qualifiedByName = "enumToString")
+    @Mapping(target = "executors", source = "executors")
+    @Mapping(target = "comments", source = "comments")
     Task mapTaskEntityToTask(TaskEntity taskEntity);
 
     @Mapping(target = "status", source = "status", qualifiedByName = "stringToStatus")
     @Mapping(target = "priority", source = "priority", qualifiedByName = "stringToPriority")
+    @Mapping(target = "executors", source = "executors")
+    @Mapping(target = "comments", source = "comments")
     TaskEntity mapTaskToTaskEntity(Task task);
 
     @Named("enumToString")

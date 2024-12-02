@@ -1,20 +1,13 @@
 package com.flawden.TaskManagerAPI.mapper;
 
-import com.flawden.TaskManagerAPI.dto.user.Login;
-import com.flawden.TaskManagerAPI.dto.user.Register;
-import com.flawden.TaskManagerAPI.dto.user.User;
-import com.flawden.TaskManagerAPI.dto.user.Role;
-import com.flawden.TaskManagerAPI.dto.user.UpdateUser;
+import com.flawden.TaskManagerAPI.dto.user.*;
 import com.flawden.TaskManagerAPI.model.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-
-    //UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(target = "role", source = "role", qualifiedByName = "roleToString")
     User mapUserEntityToUser(UserEntity userEntity);

@@ -37,5 +37,5 @@ public class TaskEntity {
     private List<UserEntity> executors;
 
     @OneToMany(mappedBy = "task")
-    private List<CommentEntity> commentEntities;
+    private List<CommentEntity> comments;
 }
