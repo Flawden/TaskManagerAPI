@@ -1,6 +1,8 @@
 package com.flawden.TaskManagerAPI.controller;
 
 import com.flawden.TaskManagerAPI.dto.Comment;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import java.util.List;
  * или пользователю.
  * </p>
  */
+@Tag(name = "Комментарии", description = "Управление комментариями")
 public interface CommentController {
 
     /**
@@ -30,6 +33,7 @@ public interface CommentController {
      * @param limit количество комментариев на странице (опционально).
      * @return список комментариев с учетом пагинации.
      */
+    @Operation(summary = "Получить все комментарии", description = "Возвращает все комментарии с возможностью пагинации.")
     ResponseEntity<List<Comment>> getAllComments(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
 
     /**
@@ -41,6 +45,7 @@ public interface CommentController {
      * @param id идентификатор комментария.
      * @return комментарий с заданным ID.
      */
+    @Operation(summary = "Получить комментарий по идентификатору", description = "Возвращает комментарий по его ID.")
     ResponseEntity<Comment> getCommentById(@PathVariable Long id);
 
     /**
@@ -52,6 +57,7 @@ public interface CommentController {
      * @param comment объект {@link Comment}, содержащий данные для создания нового комментария.
      * @return добавленный комментарий.
      */
+    @Operation(summary = "Добавить новый комментарий", description = "Добавляет новый комментарий в систему.")
     ResponseEntity<Comment> addComment(@RequestBody Comment comment);
 
     /**
@@ -64,6 +70,7 @@ public interface CommentController {
      * @param authorId идентификатор пользователя, который является автором комментария.
      * @return статус выполнения операции.
      */
+    @Operation(summary = "Обновить комментарий", description = "Обновляет комментарий по его ID.")
     ResponseEntity<HttpStatus> updateComment(@RequestBody Comment comment, Long authorId);
 
     /**
@@ -75,6 +82,7 @@ public interface CommentController {
      * @param id идентификатор комментария.
      * @return статус выполнения операции.
      */
+    @Operation(summary = "Удалить комментарий", description = "Удаляет комментарий по его ID.")
     ResponseEntity<HttpStatus> deleteComment(@PathVariable Long id);
 
     /**
@@ -86,6 +94,7 @@ public interface CommentController {
      * @param id идентификатор задачи.
      * @return комментарий, связанный с указанной задачей.
      */
+    @Operation(summary = "Получить комментарий по ID задачи", description = "Возвращает комментарий, связанный с конкретной задачей.")
     ResponseEntity<Comment> getCommentByTaskId(@PathVariable Long id);
 
     /**
@@ -97,6 +106,7 @@ public interface CommentController {
      * @param id идентификатор пользователя.
      * @return комментарий, созданный указанным пользователем.
      */
+    @Operation(summary = "Получить комментарий по ID пользователя", description = "Возвращает комментарий, связанный с пользователем.")
     ResponseEntity<Comment> getCommentByUserId(@PathVariable Long id);
 
 }

@@ -1,6 +1,10 @@
 package com.flawden.TaskManagerAPI.controller;
 
 import com.flawden.TaskManagerAPI.dto.task.Task;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import java.util.List;
  * Также есть возможности для получения задач по имени и назначения задачи пользователю.
  * </p>
  */
+@Tag(name = "Задачи", description = "Управление задачами")
 public interface TaskController {
 
     /**
@@ -30,6 +35,11 @@ public interface TaskController {
      * @param limit количество задач на странице (опционально, по умолчанию 5).
      * @return список задач с учетом пагинации.
      */
+    @Operation(summary = "Получить все задачи", description = "Получить все задачи с возможностью пагинации.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Задачи успешно получены"),
+            @ApiResponse(responseCode = "400", description = "Неверный запрос")
+    })
     ResponseEntity<List<Task>> getAllTasks(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false, defaultValue = "5") Integer limit);
 
     /**
@@ -41,6 +51,7 @@ public interface TaskController {
      * @param id идентификатор задачи.
      * @return задача с заданным ID.
      */
+    @Operation(summary = "Получить задачу по идентификатору", description = "Возвращает задачу по переданному идентификатору.")
     ResponseEntity<Task> getTaskById(@PathVariable Long id);
 
     /**
@@ -52,6 +63,11 @@ public interface TaskController {
      * @param task объект {@link Task}, содержащий данные для создания новой задачи.
      * @return добавленная задача.
      */
+    @Operation(summary = "Добавить новую задачу", description = "Добавляет новую задачу в систему.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Задача успешно добавлена"),
+            @ApiResponse(responseCode = "400", description = "Неверные данные")
+    })
     ResponseEntity<Task> addTask(@RequestBody Task task);
 
     /**
@@ -64,6 +80,7 @@ public interface TaskController {
      * @param taskId идентификатор задачи, которую необходимо обновить.
      * @return статус выполнения операции.
      */
+    @Operation(summary = "Обновить задачу", description = "Обновляет задачу с указанным идентификатором.")
     ResponseEntity<HttpStatus> updateTask(@RequestBody Task task, @PathVariable Long taskId);
 
     /**
@@ -75,6 +92,7 @@ public interface TaskController {
      * @param id идентификатор задачи.
      * @return статус выполнения операции.
      */
+    @Operation(summary = "Удалить задачу", description = "Удаляет задачу по переданному идентификатору.")
     ResponseEntity<HttpStatus> deleteTask(@PathVariable Long id);
 
     /**
@@ -86,6 +104,7 @@ public interface TaskController {
      * @param name имя задачи.
      * @return задача с указанным именем.
      */
+    @Operation(summary = "Получить задачу по названию", description = "Возвращает задачу по переданному названию")
     ResponseEntity<Task> getTaskByName(@PathVariable String name);
 
     /**
@@ -98,6 +117,7 @@ public interface TaskController {
      * @param taskId идентификатор задачи.
      * @return статус выполнения операции.
      */
+    @Operation(summary = "Назначить задачу пользователю", description = "Связывает задачу с пользователем, назначая исполнителя.")
     ResponseEntity<HttpStatus> assignTaskToUser(@PathVariable Long userId, @PathVariable Long taskId);
 
 }

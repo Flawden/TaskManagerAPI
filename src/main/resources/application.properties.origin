@@ -7,3 +7,6 @@ spring.jpa.hibernate.ddl-auto =
 spring.jpa.show-sql =
 
 secret.key =
+
+pringdoc.swagger-ui.path=/swagger-ui.html
+springdoc.api-docs.path=/api-docs
