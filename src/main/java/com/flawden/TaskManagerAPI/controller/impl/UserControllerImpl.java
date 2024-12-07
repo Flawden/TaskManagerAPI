@@ -6,6 +6,7 @@ import com.flawden.TaskManagerAPI.dto.user.User;
 import com.flawden.TaskManagerAPI.exception.UserIsAlreadyExistException;
 import com.flawden.TaskManagerAPI.exception.UserNotFoundException;
 import com.flawden.TaskManagerAPI.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +76,7 @@ public class UserControllerImpl implements UserController {
      */
     @PatchMapping("/{userId}")
     @Override
-    public ResponseEntity<HttpStatus> updateUser(UpdateUser user, Long userId) {
+    public ResponseEntity<HttpStatus> updateUser(@Valid UpdateUser user, Long userId) {
         userService.updateUser(user, userId);
         return ResponseEntity.ok().build();
     }

@@ -15,17 +15,13 @@ public class TaskMapperTest {
 
     @Test
     void shouldMapTaskEntityToTask() {
-        // Given
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setId(1L);
         taskEntity.setTitle("Test Task");
         taskEntity.setDescription("Task description");
         taskEntity.setStatus(Status.COMPLETED);
         taskEntity.setPriority(Priority.HIGH);
-
         Task task = taskMapper.mapTaskEntityToTask(taskEntity);
-
-        // Then
         assertThat(task.getId()).isEqualTo(1L);
         assertThat(task.getTitle()).isEqualTo("Test Task");
         assertThat(task.getDescription()).isEqualTo("Task description");
@@ -35,18 +31,13 @@ public class TaskMapperTest {
 
     @Test
     void shouldMapTaskToTaskEntity() {
-        // Given
         Task task = new Task();
         task.setId(1L);
         task.setTitle("Test Task");
         task.setDescription("Task description");
         task.setStatus("COMPLETED");
         task.setPriority("HIGH");
-
-        // When
         TaskEntity taskEntity = taskMapper.mapTaskToTaskEntity(task);
-
-        // Then
         assertThat(taskEntity.getId()).isEqualTo(1L);
         assertThat(taskEntity.getTitle()).isEqualTo("Test Task");
         assertThat(taskEntity.getDescription()).isEqualTo("Task description");

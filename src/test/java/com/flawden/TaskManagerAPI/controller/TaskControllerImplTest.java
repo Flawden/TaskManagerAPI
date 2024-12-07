@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TaskControllerImplTest {
@@ -37,9 +37,7 @@ public class TaskControllerImplTest {
         Long taskId = 1L;
         Task task = new Task();
         when(taskService.getTaskById(taskId)).thenReturn(task);
-
         ResponseEntity<Task> response = taskController.getTaskById(taskId);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(task, response.getBody());
@@ -50,9 +48,7 @@ public class TaskControllerImplTest {
     void testAddTask() {
         Task task = new Task();
         when(taskService.addTask(task)).thenReturn(task);
-
         ResponseEntity<Task> response = taskController.addTask(task);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(task, response.getBody());
@@ -64,9 +60,7 @@ public class TaskControllerImplTest {
         Long taskId = 1L;
         Task task = new Task();
         doNothing().when(taskService).updateTask(task, taskId);
-
         ResponseEntity<HttpStatus> response = taskController.updateTask(task, taskId);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(taskService, times(1)).updateTask(task, taskId);
     }
@@ -75,9 +69,7 @@ public class TaskControllerImplTest {
     void testDeleteTask() {
         Long taskId = 1L;
         doNothing().when(taskService).deleteTask(taskId);
-
         ResponseEntity<HttpStatus> response = taskController.deleteTask(taskId);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(taskService, times(1)).deleteTask(taskId);
     }
@@ -87,9 +79,7 @@ public class TaskControllerImplTest {
         String taskName = "Task Name";
         Task task = new Task();
         when(taskService.getTaskByName(taskName)).thenReturn(task);
-
         ResponseEntity<Task> response = taskController.getTaskByName(taskName);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(task, response.getBody());
@@ -101,9 +91,7 @@ public class TaskControllerImplTest {
         Long userId = 1L;
         Long taskId = 1L;
         doNothing().when(taskService).assignTaskToUser(userId, taskId);
-
         ResponseEntity<HttpStatus> response = taskController.assignTaskToUser(userId, taskId);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(taskService, times(1)).assignTaskToUser(userId, taskId);
     }

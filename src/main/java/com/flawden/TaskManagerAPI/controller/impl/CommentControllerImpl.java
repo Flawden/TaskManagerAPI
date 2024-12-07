@@ -4,6 +4,7 @@ import com.flawden.TaskManagerAPI.controller.CommentController;
 import com.flawden.TaskManagerAPI.dto.Comment;
 import com.flawden.TaskManagerAPI.exception.CommentNotFoundException;
 import com.flawden.TaskManagerAPI.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,7 +72,7 @@ public class CommentControllerImpl implements CommentController {
      */
     @PostMapping
     @Override
-    public ResponseEntity<Comment> addComment(Comment comment) {
+    public ResponseEntity<Comment> addComment(@Valid Comment comment) {
         return ResponseEntity.ok(commentService.addComment(comment));
     }
 
@@ -87,7 +88,7 @@ public class CommentControllerImpl implements CommentController {
      */
     @PatchMapping("/{id}")
     @Override
-    public ResponseEntity<HttpStatus> updateComment(Comment comment, Long authorId) {
+    public ResponseEntity<HttpStatus> updateComment(@Valid Comment comment, Long authorId) {
         commentService.updateComment(comment, authorId);
         return ResponseEntity.ok().build();
     }

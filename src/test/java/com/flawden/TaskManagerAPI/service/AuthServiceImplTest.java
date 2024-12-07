@@ -11,13 +11,14 @@ import com.flawden.TaskManagerAPI.repository.UserRepository;
 import com.flawden.TaskManagerAPI.service.impl.AuthServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class AuthServiceImplTest {
 
@@ -69,7 +70,6 @@ class AuthServiceImplTest {
     void testRegisterUserAlreadyExists() {
         Register register = new Register("john@example.com", "password123", "John", "Doe", "USER");
         when(userRepository.findByEmail(register.getUsername())).thenReturn(java.util.Optional.of(new UserEntity()));
-
         UserIsAlreadyExistException exception = assertThrows(UserIsAlreadyExistException.class, () -> authService.register(register));
         assertEquals("Пользователь с текущим электронным адресом уже существует", exception.getMessage());
         verify(userRepository, times(1)).findByEmail(register.getUsername());
@@ -98,10 +98,8 @@ class AuthServiceImplTest {
     @Test
     void testLoginUsernameNotFound() {
         Login login = new Login("john.doe@example.com", "password");
-
         when(authenticationManager.authenticate(any())).thenReturn(null); // mock successful authentication
         when(userRepository.findByEmail(login.getUsername())).thenReturn(java.util.Optional.empty());
-
         UsernameNotFoundException exception = assertThrows(UsernameNotFoundException.class, () -> authService.login(login));
         assertEquals("Bad credential", exception.getMessage());
         verify(authenticationManager, times(1)).authenticate(any());

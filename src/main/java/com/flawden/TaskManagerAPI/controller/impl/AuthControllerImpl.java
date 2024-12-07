@@ -4,13 +4,15 @@ import com.flawden.TaskManagerAPI.controller.AuthController;
 import com.flawden.TaskManagerAPI.dto.AuthenticationResponse;
 import com.flawden.TaskManagerAPI.dto.user.Login;
 import com.flawden.TaskManagerAPI.dto.user.Register;
+import com.flawden.TaskManagerAPI.exception.CommentNotFoundException;
+import com.flawden.TaskManagerAPI.exception.UserIsAlreadyExistException;
+import com.flawden.TaskManagerAPI.exception.UserNotFoundException;
 import com.flawden.TaskManagerAPI.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Контроллер для аутентификации и регистрации пользователей.
@@ -35,7 +37,7 @@ public class AuthControllerImpl implements AuthController {
      * @return Ответ с токеном аутентификации после успешной регистрации.
      */
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody Register register) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody Register register) {
         return ResponseEntity.ok(authService.register(register));
     }
 
@@ -49,7 +51,38 @@ public class AuthControllerImpl implements AuthController {
      * @return Ответ с токеном аутентификации после успешного входа.
      */
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody Login login) {
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody Login login) {
         return ResponseEntity.ok(authService.login(login));
+    }
+
+    /**
+     * Обрабатывает исключение {@link UserIsAlreadyExistException}, которое возникает, когда пытаются зарегистрировать
+     * пользователя с уже существующим в системе адресом электронной почты.
+     * <p>
+     * Этот метод перехватывает исключение {@link UserIsAlreadyExistException}, которое выбрасывается, если пользователь
+     * пытается зарегистрироваться с адресом электронной почты, который уже существует в базе данных. Метод возвращает
+     * ответ с кодом состояния 400 (BAD_REQUEST) и сообщением об ошибке.
+     * </p>
+     *
+     * @param e Исключение {@link UserIsAlreadyExistException}, содержащее информацию об ошибке.
+     * @return Ответ с кодом состояния 400 и сообщением об ошибке, объясняющим причину исключения.
+     */
+    @ExceptionHandler(UserIsAlreadyExistException.class)
+    public ResponseEntity<String> handleUserIsAlreadyExistException(UserIsAlreadyExistException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    /**
+     * Обработчик исключения, когда пользователь не найден.
+     * <p>
+     * Возвращает ошибку с кодом 404, если пользователь с данным идентификатором не найден.
+     * </p>
+     *
+     * @param e исключение типа {@link UserNotFoundException}, которое возникает, если пользователь не найден.
+     * @return сообщение об ошибке с соответствующим статусом 404.
+     */
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

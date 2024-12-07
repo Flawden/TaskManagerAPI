@@ -6,6 +6,7 @@ import com.flawden.TaskManagerAPI.exception.TaskNotFoundException;
 import com.flawden.TaskManagerAPI.exception.UserAlreadyHaveThisTaskException;
 import com.flawden.TaskManagerAPI.exception.UserNotFoundException;
 import com.flawden.TaskManagerAPI.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,7 +75,7 @@ public class TaskControllerImpl implements TaskController {
      */
     @PostMapping
     @Override
-    public ResponseEntity<Task> addTask(Task task) {
+    public ResponseEntity<Task> addTask(@Valid Task task) {
         return ResponseEntity.ok(taskService.addTask(task));
     }
 
@@ -90,7 +91,7 @@ public class TaskControllerImpl implements TaskController {
      */
     @PatchMapping("/{id}")
     @Override
-    public ResponseEntity<HttpStatus> updateTask(Task task, Long taskId) {
+    public ResponseEntity<HttpStatus> updateTask(@Valid Task task, Long taskId) {
         taskService.updateTask(task, taskId);
         return ResponseEntity.ok().build();
     }

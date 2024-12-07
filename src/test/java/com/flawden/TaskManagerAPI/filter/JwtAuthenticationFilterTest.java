@@ -49,7 +49,6 @@ class JwtAuthenticationFilterTest {
     @Test
     void shouldDoNothingIfNoAuthorizationHeader() throws ServletException, IOException {
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
-
         verifyNoInteractions(jwtService);
         verify(filterChain).doFilter(request, response);
     }
@@ -57,9 +56,7 @@ class JwtAuthenticationFilterTest {
     @Test
     void shouldDoNothingIfAuthorizationHeaderIsInvalid() throws ServletException, IOException {
         request.addHeader("Authorization", "InvalidHeader");
-
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
-
         verifyNoInteractions(jwtService);
         verify(filterChain).doFilter(request, response);
     }
@@ -73,15 +70,11 @@ class JwtAuthenticationFilterTest {
                 .password("password")
                 .authorities("ROLE_USER")
                 .build();
-
         request.addHeader("Authorization", "Bearer " + token);
-
         when(jwtService.extractUsername(token)).thenReturn(email);
         when(userDetailsService.loadUserByUsername(email)).thenReturn(userDetails);
         when(jwtService.validateToken(token, userDetails)).thenReturn(true);
-
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
-
         assertNotNull(SecurityContextHolder.getContext().getAuthentication());
         assertEquals(email, SecurityContextHolder.getContext().getAuthentication().getName());
         verify(filterChain).doFilter(request, response);
@@ -96,15 +89,11 @@ class JwtAuthenticationFilterTest {
                 .password("password")
                 .authorities("ROLE_USER")
                 .build();
-
         request.addHeader("Authorization", "Bearer " + token);
-
         when(jwtService.extractUsername(token)).thenReturn(email);
         when(userDetailsService.loadUserByUsername(email)).thenReturn(userDetails);
         when(jwtService.validateToken(token, userDetails)).thenReturn(false);
-
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
-
         assertNull(SecurityContextHolder.getContext().getAuthentication());
         verify(filterChain).doFilter(request, response);
     }
@@ -112,13 +101,9 @@ class JwtAuthenticationFilterTest {
     @Test
     void shouldDoNothingIfUsernameNotInJwt() throws ServletException, IOException {
         String token = "valid.jwt.token";
-
         request.addHeader("Authorization", "Bearer " + token);
-
         when(jwtService.extractUsername(token)).thenReturn(null);
-
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
-
         assertNull(SecurityContextHolder.getContext().getAuthentication());
         verify(filterChain).doFilter(request, response);
     }

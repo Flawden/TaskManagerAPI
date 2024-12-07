@@ -57,7 +57,6 @@ class TaskServiceImplTest {
 
     @Test
     void testGetTasksWithPagination() {
-        // Arrange
         TaskEntity taskEntity = new TaskEntity(1L, "Задача 1", "Описание задачи 1", Status.PENDING, Priority.MEDIUM, new ArrayList<>(), new ArrayList<>());
         Task task = new Task(1L, "Задача 1", "Описание задачи 1", "PENDING", "MEDIUM", new ArrayList<>(), new ArrayList<>());
         Pageable pageable = PageRequest.of(0, 5);
@@ -71,7 +70,6 @@ class TaskServiceImplTest {
 
     @Test
     void testGetTaskById() {
-        // Arrange
         Long taskId = 1L;
         TaskEntity taskEntity = new TaskEntity(1L, "Задача 1", "Описание задачи 1", Status.PENDING, Priority.MEDIUM, new ArrayList<>(), new ArrayList<>());
         Task task = new Task(1L, "Задача 1", "Описание задачи 1", "PENDING", "MEDIUM", new ArrayList<>(), new ArrayList<>());

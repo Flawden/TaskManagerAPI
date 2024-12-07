@@ -22,9 +22,7 @@ public class UserMapperTest {
         userEntity.setFirstName("John");
         userEntity.setLastName("Doe");
         userEntity.setRole(Role.USER);
-
         User user = userMapper.mapUserEntityToUser(userEntity);
-
         assertThat(user).isNotNull();
         assertThat(user.getId()).isEqualTo(1L);
         assertThat(user.getEmail()).isEqualTo("test@example.com");
@@ -41,9 +39,7 @@ public class UserMapperTest {
         user.setFirstName("John");
         user.setLastName("Doe");
         user.setRole("ADMIN");
-
         UserEntity userEntity = userMapper.mapUserToUserEntity(user);
-
         assertThat(userEntity).isNotNull();
         assertThat(userEntity.getId()).isEqualTo(1L);
         assertThat(userEntity.getEmail()).isEqualTo("test@example.com");
@@ -61,9 +57,7 @@ public class UserMapperTest {
         register.setFirstName("Jane");
         register.setLastName("Smith");
         register.setRole("USER");
-
         UserEntity userEntity = userMapper.mapRegisterToUserEntity(register);
-
         assertThat(userEntity).isNotNull();
         assertThat(userEntity.getEmail()).isEqualTo("newuser@example.com");
         assertThat(userEntity.getPassword()).isEqualTo("securepassword");
@@ -77,9 +71,7 @@ public class UserMapperTest {
         Login login = new Login();
         login.setUsername("user@example.com");
         login.setPassword("password123");
-
         UserEntity userEntity = userMapper.mapLoginToUserEntity(login);
-
         assertThat(userEntity).isNotNull();
         assertThat(userEntity.getEmail()).isEqualTo("user@example.com");
         assertThat(userEntity.getPassword()).isEqualTo("password123");

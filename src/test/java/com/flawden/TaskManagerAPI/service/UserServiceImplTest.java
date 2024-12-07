@@ -68,7 +68,6 @@ public class UserServiceImplTest {
 
     @Test
     public void testAddUser() {
-        // Подготовка мока
         when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
         when(userMapper.mapUserToUserEntity(user)).thenReturn(userEntity);
         when(userMapper.mapUserEntityToUser(userEntity)).thenReturn(user);
