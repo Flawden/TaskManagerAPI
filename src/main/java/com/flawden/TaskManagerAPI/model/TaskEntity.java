@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "task_entity")
 public class TaskEntity {
 
     @Id
@@ -37,7 +38,7 @@ public class TaskEntity {
     @NotNull(message = "Приоритет задачи не может быть пустым")
     private Priority priority;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "task_user",
             joinColumns = @JoinColumn(name = "task_id"),

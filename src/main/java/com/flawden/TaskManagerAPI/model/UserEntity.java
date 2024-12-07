@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "user_entity")
 public class UserEntity {
 
     @Id
@@ -25,6 +26,11 @@ public class UserEntity {
     private Role role;
 
     @ManyToMany
+    @JoinTable(
+            name = "task_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
     private List<TaskEntity> taskEntities;
 
 }

@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "comment_entity")
 public class CommentEntity {
 
     @Id
