@@ -1,5 +1,5 @@
+FROM openjdk:22-jdk-slim
 WORKDIR /app
-COPY . /app
-RUN ./mvnw clean package -DskipTests
+COPY target/TaskManagerAPI-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-CMD ["java", "-jar", "target/TaskManagerAPI-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

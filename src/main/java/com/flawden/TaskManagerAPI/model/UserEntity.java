@@ -2,6 +2,9 @@ package com.flawden.TaskManagerAPI.model;
 
 import com.flawden.TaskManagerAPI.dto.user.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +22,21 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Email не может быть пустым")
+    @Email(message = "Некорректный формат email")
     private String email;
+
+    @NotNull(message = "Пароль не может быть пустым")
+    @Size(min = 8, message = "Пароль должен содержать хотя бы 8 символов")
     private String password;
+
+    @NotNull(message = "Имя не может быть пустым")
     private String firstName;
+
+    @NotNull(message = "Фамилия не может быть пустой")
     private String lastName;
+
+    @NotNull(message = "Роль не может быть пустой")
     private Role role;
 
     @ManyToMany

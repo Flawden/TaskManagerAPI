@@ -12,6 +12,8 @@ public interface UserMapper {
     @Mapping(target = "role", source = "role", qualifiedByName = "roleToString")
     User mapUserEntityToUser(UserEntity userEntity);
 
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "taskEntities", ignore = true)
     @Mapping(target = "role", source = "role", qualifiedByName = "stringToRole")
     UserEntity mapUserToUserEntity(User user);
 
